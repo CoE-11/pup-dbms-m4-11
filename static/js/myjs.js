@@ -46,8 +46,8 @@ $(function(){
 			if (response.status = 'OK')
 			{
 				var full_data = response.data.yearlist + " " + response.data.thesis_title;
-				console.log(full_data);
-				$('ul.student-list').prepend('<li id="student'+counter+'">'+full_data+' <a class="mybtn" href=\'student/edit/'+student.self_id+'\'>Edit</a><a class=\'mybtn\' href=\'student/delete/'+student.self_id+'\'>delete</a></li>');
+				console.log(student.self_id);
+				$('ul.student-list').prepend('<li id="student'+counter+'">'+full_data+' <a class="mybtn" href=\'student/edit/'+response.data.self_id+'\'>Edit</a><a class=\'mybtn\' href=\'student/delete/'+response.data.self_id+'\'>delete</a></li>');
 				list[counter] = $('ul.student-list li').text().split(' ');
 				console.log(list[counter]);
 				counter +=1;

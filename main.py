@@ -12,7 +12,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-class Student(ndb.Model):
+class Thesis(ndb.Model):
     thesis_title = ndb.StringProperty(indexed=True)
     thesis_adviser = ndb.StringProperty(indexed=True)
     thesis_abstract = ndb.StringProperty(indexed=True)
@@ -27,13 +27,13 @@ class MainPage(webapp2.RequestHandler):
 
 class  DeleteStudent(webapp2.RequestHandler):
     def get(self,stud_id):
-        d = Student.get_by_id(int(stud_id))
+        d = Thesis.get_by_id(int(stud_id))
         d.key.delete()
         self.redirect('/')
 
 class APIHandlerPage(webapp2.RequestHandler):
     def get(self):
-        students = Student.query().order(-Student.date).fetch()
+        students = Thesis.query().order(-Thesis.date).fetch()
         student_list = []
 
         for student in students:
@@ -55,7 +55,7 @@ class APIHandlerPage(webapp2.RequestHandler):
         self.response.out.write(json.dumps(response))
 
     def post(self):
-        student = Student()
+        student = Thesis()
         student.thesis_title = self.request.get('thesis_title')
         student.thesis_abstract = self.request.get('thesis_abstract')
         student.thesis_adviser = self.request.get('thesis_adviser')
@@ -79,14 +79,14 @@ class APIHandlerPage(webapp2.RequestHandler):
 
 class  StudentEdit(webapp2.RequestHandler):
     def get(self,stud_id):
-        s = Student.get_by_id(int(stud_id))
+        s = Thesis.get_by_id(int(stud_id))
         template_data = {
             'student': s
         }
         template = JINJA_ENVIRONMENT.get_template('edit.html')
         self.response.write(template.render(template_data))
     def post(self,stud_id):
-        student = Student.get_by_id(int(stud_id))
+        student = Thesis.get_by_id(int(stud_id))
         student.thesis_title = self.request.get('thesis_title')
         student.thesis_abstract = self.request.get('thesis_abstract')
         student.thesis_adviser = self.request.get('thesis_adviser')
