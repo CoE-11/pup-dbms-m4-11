@@ -6,34 +6,42 @@
 </head>
 <body>
     <div class="box">
-        <form id="form2" action="/student/edit/{{student.key.id()}}" method="post">
-            <h2>Create Student<h2><hr>
+        <form id="form2" action="/thesis/edit/{{thesis.key.id()}}" method="post">
+            <h2>Edit Thesis<h2><hr>
+
             <h3>Thesis title</h3>
-            <input type="text" value="{{student.thesis_title}}" name="thesis_title" required></input>
+            <input type="text" name="thesis_title" placeholder="thesis title" value="{{thesis.thesis_title}}" required></input>
             <h3>Thesis adviser</h3>
-            <input type="text" value="{{student.thesis_adviser}}" name="thesis_adviser" required></input>
+            <input type="text" name="thesis_adviser" placeholder="thesis adviser" value="{{thesis.thesis_adviser}}" required></input>
+            <div class="block">
+                <h3>Year</h3>
+                <select name="yearlist" form="form2" class="selection">
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>  
+                    <option value="2015">2015</option>
+                    <option selected value="{{thesis.yearlist}}">{{thesis.yearlist}}</option>
+                </select>
+            </div>
+            <div class="block">
+                <h3>Section</h3>
+                <select name="section" form="form2" class="selection">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option selected value="{{thesis.section}}">{{thesis.section}}</option>
+                </select>
+            </div>
+            <div class="abs_block">
             <h3>Thesis abstract</h3>
-            <input type="textarea" value="{{student.thesis_abstract}}" name="thesis_abstract" required></input>
+            <textarea name="thesis_abstract" class="tarea" cols="100" rows="20" form="form2" required>{{thesis.thesis_abstract}}</textarea>
             <input type="submit" class="btn" value="Submit">
-        </form><br><br><br>
-
-        <select name="yearlist" form="form2">
-            <option value="2011">2011</option>
-            <option value="2012">2012</option>
-            <option value="2013">2013</option>
-            <option value="2014">2014</option>
-            <option value="2015">2015</option>
-            <option selected value="{{student.yearlist}}">{{student.yearlist}}</option>
-        </select>
-
-        <select name="section" form="form2" value="{{student.section}}">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option selected value="{{student.section}}">{{student.section}}</option>
-        </select>
+            </div>
+        
+        </form>
     </div>
     
     <script type="text/javascript" src="/static/js/myjs.js"></script>

@@ -19,85 +19,85 @@ class Thesis(ndb.Model):
     yearlist = ndb.IntegerProperty()
     section = ndb.IntegerProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
-
+    
 class MainPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('create.html')
         self.response.write(template.render())
 
-class  DeleteStudent(webapp2.RequestHandler):
-    def get(self,stud_id):
-        d = Thesis.get_by_id(int(stud_id))
+class  DeleteThesis(webapp2.RequestHandler):
+    def get(self,th_id):
+        d = Thesis.get_by_id(int(th_id))
         d.key.delete()
         self.redirect('/')
 
 class APIHandlerPage(webapp2.RequestHandler):
     def get(self):
-        students = Thesis.query().order(-Thesis.date).fetch()
-        student_list = []
+        thesis = Thesis.query().order(-Thesis.date).fetch()
+        thesis_list = []
 
-        for student in students:
-            student_list.append({
-                'self_id':student.key.id(),
-                'thesis_title':student.thesis_title,
-                'thesis_adviser':student.thesis_adviser,
-                'thesis_abstract':student.thesis_abstract,
-                'yearlist':student.yearlist,
-                'section':student.section
+        for thes in thesis:
+            thesis_list.append({
+                'self_id':thes.key.id(),
+                'thesis_title':thes.thesis_title,
+                'thesis_adviser':thes.thesis_adviser,
+                'thesis_abstract':thes.thesis_abstract,
+                'yearlist':thes.yearlist,
+                'section':thes.section
                 })
 
         response = {
             'result':'OK',
-            'data':student_list
+            'data':thesis_list
         }
 
         self.response.headers['Content-Type'] = 'application/json'
         self.response.out.write(json.dumps(response))
 
     def post(self):
-        student = Thesis()
-        student.thesis_title = self.request.get('thesis_title')
-        student.thesis_abstract = self.request.get('thesis_abstract')
-        student.thesis_adviser = self.request.get('thesis_adviser')
-        student.yearlist = int(self.request.get('yearlist'))
-        student.section = int(self.request.get('section'))
-        student.put()
+        thesis = Thesis()
+        thesis.thesis_title = self.request.get('thesis_title')
+        thesis.thesis_abstract = self.request.get('thesis_abstract')
+        thesis.thesis_adviser = self.request.get('thesis_adviser')
+        thesis.yearlist = int(self.request.get('yearlist'))
+        thesis.section = int(self.request.get('section'))
+        thesis.put()
         
         self.response.headers['Content-Type'] = 'application/json'
         response = {
             'result':'OK',
             'data':{
-                'self_id':student.key.id(),
-                'thesis_title':student.thesis_title,
+                'self_id':thesis.key.id(),
+                'thesis_title':thesis.thesis_title,
                 # 'thesis_adviser':student.thesis_adviser,
                 # 'thesis_abstract':student.thesis_abstract,
-                'yearlist':student.yearlist,
+                'yearlist':thesis.yearlist,
                 # 'section':student.section
             }
         }
         self.response.out.write(json.dumps(response))
 
-class  StudentEdit(webapp2.RequestHandler):
-    def get(self,stud_id):
-        s = Thesis.get_by_id(int(stud_id))
+class  ThesisEdit(webapp2.RequestHandler):
+    def get(self,th_id):
+        s = Thesis.get_by_id(int(th_id))
         template_data = {
-            'student': s
+            'thesis': s
         }
         template = JINJA_ENVIRONMENT.get_template('edit.html')
         self.response.write(template.render(template_data))
-    def post(self,stud_id):
-        student = Thesis.get_by_id(int(stud_id))
-        student.thesis_title = self.request.get('thesis_title')
-        student.thesis_abstract = self.request.get('thesis_abstract')
-        student.thesis_adviser = self.request.get('thesis_adviser')
-        student.yearlist = int(self.request.get('yearlist'))
-        student.section = int(self.request.get('section'))
-        student.put()
+    def post(self,th_id):
+        thesis = Thesis.get_by_id(int(th_id))
+        thesis.thesis_title = self.request.get('thesis_title')
+        thesis.thesis_abstract = self.request.get('thesis_abstract')
+        thesis.thesis_adviser = self.request.get('thesis_adviser')
+        thesis.yearlist = int(self.request.get('yearlist'))
+        thesis.section = int(self.request.get('section'))
+        thesis.put()
         self.redirect('/')
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/api/handler', APIHandlerPage),
-    ('/student/delete/(.*)', DeleteStudent),
-    ('/student/edit/(.*)', StudentEdit)
+    ('/thesis/delete/(.*)', DeleteThesis),
+    ('/thesis/edit/(.*)', ThesisEdit)
 ], debug=True)
