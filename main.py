@@ -86,7 +86,7 @@ class  StudentEdit(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('edit.html')
         self.response.write(template.render(template_data))
     def post(self,stud_id):
-        student = Student()
+        student = Student.get_by_id(int(stud_id))
         student.thesis_title = self.request.get('thesis_title')
         student.thesis_abstract = self.request.get('thesis_abstract')
         student.thesis_adviser = self.request.get('thesis_adviser')
