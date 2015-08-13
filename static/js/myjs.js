@@ -75,11 +75,10 @@ $(function(){
 		var student_list_api = '/api/handler';
 		$.get(student_list_api,{},function(response){
 			response.data.forEach(function(student) {
-				console.log('stud_id: '+student.self_id);
 				var full_name = student.yearlist + " " + student.thesis_title;
+				console.log("student id: "+student.self_id);
 				$('ul.student-list').append('<li id="student'+counter+'">'+full_name+' <a class="mybtn" href=\'student/edit/'+student.self_id+'\'>Edit</a><a class=\'mybtn\' href=\'student/delete/'+student.self_id+'\'>delete</a></li>');
 				list[counter] = $('ul.student-list li').text().split(' ');
-				console.log(student.self_id.toString());
 				counter +=1;
 
 				return false;

@@ -67,3 +67,7 @@ form#form1 input[type=textarea],form#form2 input[type=textarea] {
 	width: 400px;
 
 }
+
+form#form2 select {
+	position: relative;
+}
