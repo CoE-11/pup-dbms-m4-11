@@ -38,7 +38,7 @@ form input[type=submit] {
 	border-radius: 10px;
 	padding: 3px;
 	height: 40px;
-	width: 50px;
+	width: 565px;
 	margin: 5px 0px 20px 5px;
 }
 
@@ -99,4 +99,12 @@ form#form2 select {
 
 .list_label {
 	margin-left: 20px;
+}
+
+.welcome {
+	position:absolute; 
+	top:0; 
+	right:0; 
+	color:navy; 
+	font-size:15px; 
 }

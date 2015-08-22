@@ -5,6 +5,8 @@
   <script type="text/javascript" src="/static/js/jquery-1.11.3.js"></script>
 </head>
 <body>
+    <p class="welcome">Hi! Welcome {{user.nickname()}} </p><br>
+    <p class="welcome" style="top:20px"><a href="{{ url|safe }}">{{ url_linktext }}</a></p>
     <div class="box">
         <form id="form2" action="/thesis/edit/{{thesis.key.id()}}" method="post">
             <h2>Edit Thesis<h2><hr>

@@ -32,7 +32,7 @@ $(function(){
 		{
 			if (response.status = 'OK')
 			{
-				var full_data = response.data.yearlist + " " + response.data.thesis_title;
+				var full_data = response.data.yearlist + "      " + response.data.thesis_title + "      " + response.data.app_user;
 				$('ul.thesis-list').prepend('<li>'+full_data+' <a class="mybtn" href=\'thesis/edit/'+response.data.self_id+'\'>Edit</a><a class=\'mybtn\' href=\'thesis/delete/'+response.data.self_id+'\'>delete</a></li>');
 				valid_title[counter] = response.data.thesis_title; //thesis validation
 				counter+=1;										   //thesis validation
@@ -57,7 +57,7 @@ $(function(){
 		var thesis_list_api = '/api/handler';
 		$.get(thesis_list_api,{},function(response){
 			response.data.forEach(function(thesis) {
-				var thesis_info = thesis.yearlist + " " + thesis.thesis_title;
+				var thesis_info = thesis.yearlist + "      " + thesis.thesis_title + "      " + thesis.app_user;
 				$('ul.thesis-list').append('<li>'+thesis_info+' <a class="mybtn" href=\'thesis/edit/'+thesis.self_id+'\'>Edit</a><a class=\'mybtn\' href=\'thesis/delete/'+thesis.self_id+'\'>delete</a></li>');
 				valid_title[counter] = thesis.thesis_title;   //thesis validation
 				counter+=1;									  //thesis validation
